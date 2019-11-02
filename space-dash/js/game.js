@@ -23,6 +23,22 @@ var Colors = {
   neonpurple: 0x711d91
 };
 
+navigator.mediaDevices
+  .getUserMedia({ video: true, audio: true })
+  .then(stream => (video.srcObject = stream))
+  .catch(e => log(e.name + ": " + e.message));
+
+var log = msg => (div.innerHTML += msg + "<br>");
+
+function setup() {
+  var canvas = createCanvas(320, 240);
+  canvas.parent("sketch-div");
+  video = createCapture(VIDEO);
+  video.hide();
+  poseNet = ml5.poseNet(video, modelReady);
+  poseNet.on("pose", gotPoses);
+}
+
 function gotPoses(poses) {
   if (poses.length > 0) {
     let lsX = poses[0].pose.keypoints[5].position.x;
@@ -401,12 +417,12 @@ function Player() {
       self.element.position.y = 0;
       self.element.rotation.x -= 0.2;
 
-      if (isLeft == true) {
-        self.element.position.x += 10;
-      }
-      if (isRight == true) {
-        self.element.position.x -= 10;
-      }
+      // if (isLeft == true) {
+      //   self.element.position.x += 10;
+      // }
+      // if (isRight == true) {
+      //   self.element.position.x -= 10;
+      // }
       this.onLeftKeyPressed = function() {
         self.element.position.x -= 80;
         self.element.rotation.y += 1;
