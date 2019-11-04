@@ -71,12 +71,9 @@ function modelReady() {
 }
 
 function draw() {
-  // rightShoulderX = map(rightShoulderX, 0, 640, 0, 320);
-  // rightShoulderY = map(rightShoulderY, 0, 480, 0, 240);
   background(255);
   push();
   scale(0.5);
-  // fill(255, 20, 147, 100);
   image(video, 0, 0);
   ellipse(rightShoulderX, rightShoulderY, 30);
   ellipse(leftShoulderX, leftShoulderY, 30);
@@ -87,8 +84,6 @@ function draw() {
   line(0, 70, 320, 70);
   fill(255, 20, 147, 100);
   noStroke();
-  // rect(107, 100, 60, 40);
-  // rect(214, 100, 60, 40);
   rect(0, 90, 640, 30);
 
   if (rightShoulderX > rightHipX) {
@@ -105,17 +100,14 @@ function draw() {
 
 var deg2Rad = Math.PI / 180;
 
-// Make a new world when the page is loaded.
 window.addEventListener("load", function() {
   new World();
 });
 
 var paused, player;
 function World() {
-  // Explicit binding of this even in changing contexts.
   var self = this;
 
-  // Scoped variables in this world.
   var element,
     scene,
     camera,
@@ -131,8 +123,6 @@ function World() {
     gameOver,
     gridHelper,
     redRingPresenceProb;
-
-  // Initialize the world.
   init();
 
   function init() {
@@ -141,8 +131,8 @@ function World() {
     element = document.getElementById("world");
 
     objects = [];
-    ringPresenceProb = 0.19;
-    redRingPresenceProb = 0.38;
+    ringPresenceProb = 0.16;
+    redRingPresenceProb = 0.32;
     maxRingSize = 0.9;
 
     gameOver = false;
@@ -463,8 +453,8 @@ function Ring(x, y, z, s, assignedColor, typeOfRing) {
   this.type = typeOfRing;
 
   this.collides = function(minX, maxX, minY, maxY, minZ, maxZ) {
-    var ringMinX = self.mesh.position.x - this.scale * 300;
-    var ringMaxX = self.mesh.position.x + this.scale * 300;
+    var ringMinX = self.mesh.position.x - this.scale * 400;
+    var ringMaxX = self.mesh.position.x + this.scale * 400;
     var ringMinY = self.mesh.position.y;
     var ringMaxY = self.mesh.position.y + this.scale * 500;
     var ringMinZ = self.mesh.position.z - this.scale * 300;
