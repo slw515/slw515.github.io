@@ -141,8 +141,8 @@ function World() {
     element = document.getElementById("world");
 
     objects = [];
-    ringPresenceProb = 0.16;
-    redRingPresenceProb = 0.32;
+    ringPresenceProb = 0.19;
+    redRingPresenceProb = 0.38;
     maxRingSize = 0.9;
 
     gameOver = false;
@@ -463,12 +463,12 @@ function Ring(x, y, z, s, assignedColor, typeOfRing) {
   this.type = typeOfRing;
 
   this.collides = function(minX, maxX, minY, maxY, minZ, maxZ) {
-    var ringMinX = self.mesh.position.x - this.scale * 400;
-    var ringMaxX = self.mesh.position.x + this.scale * 400;
+    var ringMinX = self.mesh.position.x - this.scale * 300;
+    var ringMaxX = self.mesh.position.x + this.scale * 300;
     var ringMinY = self.mesh.position.y;
-    var ringMaxY = self.mesh.position.y + this.scale * 700;
+    var ringMaxY = self.mesh.position.y + this.scale * 500;
     var ringMinZ = self.mesh.position.z - this.scale * 300;
-    var ringMaxZ = self.mesh.position.z + this.scale * 400;
+    var ringMaxZ = self.mesh.position.z + this.scale * 300;
 
     return (
       ringMinX <= maxX &&
