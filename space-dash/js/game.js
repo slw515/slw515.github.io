@@ -131,8 +131,8 @@ function World() {
     element = document.getElementById("world");
 
     objects = [];
-    ringPresenceProb = 0.16;
-    redRingPresenceProb = 0.32;
+    ringPresenceProb = 0.2;
+    redRingPresenceProb = 0.4;
     maxRingSize = 0.9;
 
     gameOver = false;
@@ -405,6 +405,7 @@ function Player() {
     } else {
       var runningClock = currentTime - self.runningStartTime;
       self.element.position.y = 0;
+      console.log(self.element.position.x);
       self.element.rotation.x -= 0.2;
 
       if (isLeft == true) {
@@ -426,6 +427,13 @@ function Player() {
       this.onPause = function() {
         self.pauseStartTime = new Date() / 1000;
       };
+    }
+    if (self.element.position.x >= 1520) {
+      self.element.position.x = 1520;
+    }
+
+    if (self.element.position.x <= -1520) {
+      self.element.position.x = -1520;
     }
   };
 
