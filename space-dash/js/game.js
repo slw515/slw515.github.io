@@ -417,12 +417,12 @@ function Player() {
       self.element.position.y = 0;
       self.element.rotation.x -= 0.2;
 
-      // if (isLeft == true) {
-      //   self.element.position.x += 10;
-      // }
-      // if (isRight == true) {
-      //   self.element.position.x -= 10;
-      // }
+      if (isLeft == true) {
+        self.element.position.x += 10;
+      }
+      if (isRight == true) {
+        self.element.position.x -= 10;
+      }
       this.onLeftKeyPressed = function() {
         self.element.position.x -= 80;
         self.element.rotation.y += 1;
