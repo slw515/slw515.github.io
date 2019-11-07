@@ -385,6 +385,7 @@ function Player() {
     }
 
     if (self.isJumping) {
+      console.log("hello");
       var jumpClock = currentTime - self.jumpStartTime;
       if (jumpClock < 0.3) {
         self.element.position.y += 120;
