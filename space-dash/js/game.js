@@ -357,12 +357,14 @@ function World() {
     return false;
   }
 }
-
+const gravity = 0.1;
 function Player() {
   var self = this;
   this.jumpDuration = 0.6;
   this.jumpHeight = 2000;
-
+  this.onGround = true;
+  this.speed = 0;
+  
   init();
   function init() {
     self.element = createSphere(150, 190, 40, Colors.neonpink, 0, 0, -4200);
@@ -386,23 +388,34 @@ function Player() {
         self.jumpStartTime = new Date() / 1000;
       }
       this.onUpKeyPressed = function() {
-        self.isJumping = true;
-        self.jumpStartTime = new Date() / 1000;
+        if (self.onGround == true) {
+          self.isJumping = true;
+          self.jumpStartTime = new Date() / 1000;
+          self.speed = -5;
+        }
       };
+      this.speed += gravity;
+      if(self.element.position.y >= 150){ // has hit ground
+        self.element.position.y = 0;
+        self.onGround = true;
+     }else{
+        self.onGround = false;
+     }
     }
 
     if (self.isJumping) {
-      var jumpClock = currentTime - self.jumpStartTime;
-      if (jumpClock < 0.3) {
-        self.element.position.y += 120;
-      } else if (jumpClock >= 0.3) {
-        self.element.position.y -= 120;
-      }
-      if (jumpClock > self.jumpDuration) {
-        self.isJumping = false;
-        self.runningStartTime += self.jumpDuration;
-      }
-    } else {
+    //   var jumpClock = currentTime - self.jumpStartTime;
+    //   if (jumpClock < 0.3) {
+    //     self.element.position.y += 120;
+    //   } else if (jumpClock >= 0.3) {
+    //     self.element.position.y -= 120;
+    //   }
+    //   if (jumpClock > self.jumpDuration) {
+    //     self.isJumping = false;
+    //     self.runningStartTime += self.jumpDuration;
+    //   }
+    // } 
+    else {
       var runningClock = currentTime - self.runningStartTime;
       self.element.position.y = 0;
       console.log(self.element.position.x);
