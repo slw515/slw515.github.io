@@ -307,7 +307,7 @@ function World() {
             0,
             position,
             scale,
-            Colors.neonpurple,
+            Colors.yellow,
             type
           );
           objects.push(ring);
@@ -351,10 +351,14 @@ function World() {
   }
 }
 
+var gravity = 0.1;
+
 function Player() {
   var self = this;
   this.jumpDuration = 0.6;
   this.jumpHeight = 2000;
+  this.dy = 0;
+  this.drag = 0.98;
 
   init();
   function init() {
