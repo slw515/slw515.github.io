@@ -1,0 +1,35 @@
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
+<body>
+  <h1>Hello</h1>
+  <form>Name: <input type="text" id="name" /></form>
+  <input type="button" id="submitButton" onclick="submitScore();" />
+  <input type="button" id="getScores" onclick="getScores();" />
+
+  <script>
+    async function submitScore() {
+      // console.log("hello");
+      var name = document.getElementById("name").value;
+      console.log(name.value);
+      var score = 60;
+      const data = { name, score };
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      };
+      const response = await fetch("/api", options);
+      const json = await response.json();
+      console.log(json);
+    }
+
+    async function getScores() {
+      const response = await fetch("/api");
+      const data = await response.json();
+      console.log(data);
+    }
+  </script>
+</body>
