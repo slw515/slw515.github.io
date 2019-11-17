@@ -403,7 +403,7 @@ function Player() {
     } else {
       var runningClock = currentTime - self.runningStartTime;
       self.element.position.y = 0;
-      console.log(self.element.position.x);
+      // console.log(self.element.position.x);
       self.element.rotation.x -= 0.2;
 
       if (isLeft == true) {
