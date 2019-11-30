@@ -207,13 +207,13 @@ function World() {
             player.onPause();
           }
           if (key == up && !paused) {
-            player.onUpKeyPressed();
+            player.goUp();
           }
           if (key == left && !paused) {
-            player.onLeftKeyPressed();
+            player.goLeft();
           }
           if (key == right && !paused) {
-            player.onRightKeyPressed();
+            player.goRight();
           }
         }
       }
@@ -265,7 +265,7 @@ function World() {
 
       if (gameOver == true) {
         document.getElementById("gameOverText").style.display = "inline";
-        document.getElementById("everything").style.opacity = "0.4";
+        document.getElementById("everything").style.opacity = "0.25";
         document.addEventListener("keydown", function(e) {
           var key = e.keyCode;
           if (keysAllowed[key] === false) return;
@@ -388,7 +388,7 @@ function Player() {
         self.isJumping = true;
         self.jumpStartTime = new Date() / 1000;
       }
-      this.onUpKeyPressed = function() {
+      this.goUp = function() {
         self.isJumping = true;
         self.jumpStartTime = new Date() / 1000;
       };
@@ -407,7 +407,6 @@ function Player() {
         self.runningStartTime += self.jumpDuration;
       }
     } else {
-      var runningClock = currentTime - self.runningStartTime;
       self.element.position.y = 0;
       // console.log(self.element.position.x);
       self.element.rotation.x -= 0.2;
@@ -418,12 +417,12 @@ function Player() {
       if (isRight == true) {
         self.element.position.x -= 10;
       }
-      this.onLeftKeyPressed = function() {
+      this.goLeft = function() {
         self.element.position.x -= 80;
         self.element.rotation.y += 1;
         self.element.rotation.x += 5;
       };
-      this.onRightKeyPressed = function() {
+      this.goRight = function() {
         self.element.position.x += 80;
         self.element.rotation.y -= 1;
         self.element.rotation.x += 5;
@@ -590,6 +589,8 @@ async function getScores() {
   console.log(scoreArray);
   //below code gets response and appends it to score list
   var scoreContainer = document.getElementById("scoreList");
+  var scoresContent = document.getElementById("scoresContent");
+
   scoreContainer.style.display = "inline";
   for (item of scoreArray) {
     const entry = document.createElement("div");
@@ -602,7 +603,7 @@ async function getScores() {
     entry.innerHTML += "<br>";
     score.textContent = item.playerscore;
     entry.append(name, score);
-    scoreContainer.append(entry);
+    scoresContent.append(entry);
   }
 }
 

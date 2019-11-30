@@ -9,6 +9,11 @@
       href="https://fonts.googleapis.com/css?family=Tinos&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inconsolata:700&display=swap"
+      rel="stylesheet"
+    />
+
     <link href="fontawesome/css/all.css" rel="stylesheet" />
     <script type="text/javascript" src="js/three.min.js"></script>
     <script type="text/javascript" src="js/game.js"></script>
@@ -114,7 +119,7 @@
     </div>
     <!-- <div > -->
     <h5 id="gameOverText">
-      Game Over! <br />Press the down key to play again<br />
+      <span>Game Over!</span><br />Press the down key to play again!<br />
       Press the up button to input your score!
     </h5>
     <video id="video" width="160" height="120" autoplay></video><br />
@@ -129,7 +134,14 @@
       <!-- <input type="button" id="getScores" onclick="getScores();" /> -->
     </div>
     <div id="scoreList">
-      <button id="playAgain" onclick="playAgain();"></button>
+      <div id="contentHeader">
+        <div class="pushLeft">Player</div>
+        <div class="pushRight">Score</div>
+      </div>
+      <div id="scoresContent"></div>
+      <div id="backgroundButton">
+        <button id="playAgain" onclick="playAgain();">Play Again!</button>
+      </div>
     </div>
     <script></script>
     <!-- </div> -->
