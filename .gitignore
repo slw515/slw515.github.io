@@ -1,2 +1,3 @@
-space-dash/node_modules
+/space-dash/node_modules
 node_modules/
+**/node_modules
