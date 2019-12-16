@@ -1,5 +1,6 @@
 let video;
 let poseNet;
+let tutorialCounter = 0;
 let leftShoulderX = 0;
 let leftShoulderY = 0;
 let leftHipX = 0;
@@ -10,10 +11,15 @@ let rightWristX = 0;
 let rightWristY = 0;
 let rightHipX = 0;
 let rightHipY = 0;
+let leftWristY = 0;
 var isLeft = false;
 var isRight = false;
 let counter = 0;
 var score;
+var isRefresh = false;
+
+let prevLeftShoulder = 0;
+let prevRightShoulder = 0;
 var Colors = {
   yellow: 0xffff00,
   meteor: 0x61616c,
@@ -45,6 +51,8 @@ function gotPoses(poses) {
     let rhY = poses[0].pose.keypoints[12].position.y;
     let rwX = poses[0].pose.keypoints[10].position.x;
     let rwY = poses[0].pose.keypoints[10].position.y;
+    let lwY = poses[0].pose.keypoints[9].position.y;
+
     leftShoulderX = lerp(leftShoulderX, lsX, 0.4);
     leftShoulderY = lerp(leftShoulderY, lsY, 0.4);
     leftHipX = lerp(leftHipX, lhX, 0.4);
@@ -56,6 +64,7 @@ function gotPoses(poses) {
     rightHipX = lerp(rightHipX, rhX, 0.5);
     rightHipY = lerp(rightHipY, rhY, 0.5);
     rightWristX = lerp(rightWristX, rwX, 0.5);
+    leftWristY = lerp(leftWristY, lwY, 0.5);
     rightWristY = lerp(rightWristY, rwY, 0.5);
   }
 }
@@ -71,6 +80,8 @@ function draw() {
   image(video, 0, 0);
   ellipse(rightShoulderX, rightShoulderY, 30);
   ellipse(leftShoulderX, leftShoulderY, 30);
+  ellipse(rightWristX, rightWristY, 30);
+
   pop();
   strokeWeight(6);
   stroke(255, 20, 147);
@@ -232,6 +243,17 @@ function World() {
   }
 
   function loop() {
+    if (tutorialCounter > 100) {
+      if (leftWristY < 75) {
+        var everything = document.getElementById("everything");
+        var firstInstructions = document.getElementById("introBox");
+        firstInstructions.style.display = "none";
+        everything.style.opacity = "1";
+        paused = false;
+        player.onUnpause();
+      }
+    }
+    tutorialCounter++;
     if (!paused) {
       counter += 1;
 
@@ -260,12 +282,17 @@ function World() {
         document.addEventListener("keydown", function(e) {
           if (e.keyCode == 40) document.location.reload(true);
         });
+        if (rightWristY < 75) {
+          console.log("reload");
+          location.reload();
+        }
       }
       var up = 38;
 
       if (gameOver == true) {
         document.getElementById("gameOverText").style.display = "inline";
         document.getElementById("everything").style.opacity = "0.25";
+
         document.addEventListener("keydown", function(e) {
           var key = e.keyCode;
           if (keysAllowed[key] === false) return;
@@ -379,11 +406,22 @@ function Player() {
   }
 
   this.update = function() {
+    var difference = prevLeftShoulder - leftShoulderY;
+    // console.log(difference);
     var currentTime = new Date() / 1000;
+    console.log(self.isJumping);
     if (!self.isJumping) {
+      // if (
+      //   rightShoulderY < 75 ||
+      //   (leftShoulderY < 75 && self.element.position.y == 0)
+      // ) {
+      //   self.isJumping = true;
+      //   self.jumpStartTime = new Date() / 1000;
+      // }
       if (
-        rightShoulderY < 75 ||
-        (leftShoulderY < 75 && self.element.position.y == 0)
+        prevLeftShoulder - leftShoulderY > 10 &&
+        prevRightShoulder - rightShoulderY > 10 &&
+        self.element.position.y == 0
       ) {
         self.isJumping = true;
         self.jumpStartTime = new Date() / 1000;
@@ -394,13 +432,16 @@ function Player() {
       };
     }
 
+    prevLeftShoulder = leftShoulderY;
+    prevRightShoulder = rightShoulderY;
+
     if (self.isJumping) {
-      console.log("hello");
+      // console.log("hello");
       var jumpClock = currentTime - self.jumpStartTime;
       if (jumpClock < 0.3) {
-        self.element.position.y += 120;
+        self.element.position.y += 140;
       } else if (jumpClock >= 0.3) {
-        self.element.position.y -= 120;
+        self.element.position.y -= 140;
       }
       if (jumpClock > self.jumpDuration) {
         self.isJumping = false;
@@ -552,7 +593,7 @@ function removeFourth() {
 
 function endTutorial() {
   var everything = document.getElementById("everything");
-  var firstInstructions = document.getElementById("introBox");
+  var firstInstructions = document.getElementById("secondIntro");
   firstInstructions.style.display = "none";
   everything.style.opacity = "1";
   paused = false;

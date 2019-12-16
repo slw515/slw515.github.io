@@ -66,13 +66,13 @@
         retrieve information from the Posenet library
       </p>
     </div>
-    <div id="introBox">
+    <!-- <div id="introBox">
       <h5>How To Play</h5>
       <img src="howto.png" />
       <p>
         Stand in front of the camera and keep your shoulders (marked by the pink
         circles) in the pink rectangle! Make sure to enable your camera to play
-        the game.
+        the game. <br />Raise Your Left Hand To Skip the Tutorial!
       </p>
       <button type="button" class="btn btn-dark" onclick="removeFirst()">
         Next Step!
@@ -85,7 +85,7 @@
       >
         Skip Tutorial!
       </button>
-    </div>
+    </div> -->
     <div id="secondIntro">
       <h5>How To Play</h5>
       <img src="lean.png" />
@@ -93,6 +93,14 @@
         Lean your torso to the left or to the right while keeping your legs
         straight to control the balls direction!
       </p>
+      <button
+        type="button"
+        class="btn btn-dark"
+        id="endTutorial"
+        onclick="endTutorial()"
+      >
+        Skip Tutorial!
+      </button>
       <button type="button" class="btn btn-dark" onclick="removeSecond()">
         Next Step!
       </button>
@@ -111,7 +119,7 @@
       <h5>How To Play</h5>
       <img src="ring.png" />
       <p>
-        Avoid the red rings and hit the purple rings for extra points!
+        Avoid the red rings and hit the yellow rings for extra points!
       </p>
       <button type="button" class="btn btn-dark" onclick="removeFourth()">
         Proceed to Game!
@@ -119,8 +127,7 @@
     </div>
     <!-- <div > -->
     <h5 id="gameOverText">
-      <span>Game Over!</span><br />Press the down key to play again!<br />
-      Press the up button to input your score!
+      <span>Game Over!</span><br />Press the Down Button To Play Again!
     </h5>
     <video id="video" width="160" height="120" autoplay></video><br />
     <div id="inputNames">
