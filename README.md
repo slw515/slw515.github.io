@@ -1,4 +1,4 @@
-# Space-Dash
+# Space Dash
 Web game that features position tracking using Posenet. Developed using p5.js and three.js.
 
 Using Posenet to track the body using the webcam, the ball on screen can be controlled by tilting your body and by jumping. Avoid the red rings and hit the yellow ones for extra points.
