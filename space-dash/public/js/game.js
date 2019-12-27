@@ -243,16 +243,16 @@ function World() {
   }
 
   function loop() {
-    if (tutorialCounter > 100) {
-      if (leftWristY < 75) {
-        var everything = document.getElementById("everything");
-        var firstInstructions = document.getElementById("introBox");
-        firstInstructions.style.display = "none";
-        everything.style.opacity = "1";
-        paused = false;
-        player.onUnpause();
-      }
-    }
+    // if (tutorialCounter > 100) {
+    //   if (leftWristY < 75) {
+    //     var everything = document.getElementById("everything");
+    //     var firstInstructions = document.getElementById("introBox");
+    //     firstInstructions.style.display = "none";
+    //     everything.style.opacity = "1";
+    //     paused = false;
+    //     player.onUnpause();
+    //   }
+    // }
     tutorialCounter++;
     if (!paused) {
       counter += 1;
